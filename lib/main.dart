@@ -88,7 +88,7 @@ class _MyValentineState extends State<MyValentine> {
     return Scaffold(
       body: Stack(
         children: [
-          // 💖 CUTE GRADIENT BACKGROUND
+          // 💖 Soft Gradient Background
           Container(
             decoration: BoxDecoration(
               gradient: LinearGradient(
@@ -103,7 +103,7 @@ class _MyValentineState extends State<MyValentine> {
             ),
           ),
 
-          // 💕 SCATTERED HEARTS (LIKE BEFORE)
+          // 💕 Floating Hearts
           ...List.generate(25, (index) {
             return Positioned(
               left: (index * 73.5) % screenWidth,
@@ -122,8 +122,8 @@ class _MyValentineState extends State<MyValentine> {
           SafeArea(
             child: Center(
               child: Card(
-                elevation: 12,
-                shadowColor: Colors.pink.withOpacity(0.4),
+                elevation: 10,
+                shadowColor: Colors.pink.withOpacity(0.3),
                 shape: RoundedRectangleBorder(
                   borderRadius: BorderRadius.circular(25),
                 ),
@@ -133,22 +133,39 @@ class _MyValentineState extends State<MyValentine> {
                   child: Column(
                     mainAxisSize: MainAxisSize.min,
                     children: [
-                      Text(
-                        "Dearest LOVEE 💖",
+                      // 👑 Title
+                                            Text(
+                        "My Queen 💖",
+                        textAlign: TextAlign.center,
                         style: TextStyle(
-                          fontSize: 24,
-                          fontWeight: FontWeight.bold,
+                          fontSize: 28,
+                          fontWeight: FontWeight.w700,
+                          letterSpacing: 1.3,
+                          color: const Color(0xFFAD1457), // deeper romantic pink
+                          shadows: [
+                            Shadow(
+                              offset: const Offset(0, 2),
+                              blurRadius: 6,
+                              color: Colors.black.withOpacity(0.15),
+                            ),
+                          ],
+                        ),
+                      ),
+
+
+                      const SizedBox(height: 10),
+
+                      // 💕 Subtitle
+                      Text(
+                        "Will you be my Valentine?",
+                        textAlign: TextAlign.center,
+                        style: TextStyle(
+                          fontSize: 18,
+                          fontWeight: FontWeight.w600,
                           color: Colors.pink.shade800,
                         ),
                       ),
-                      const SizedBox(height: 8),
-                      Text(
-                        "Will you be my Valentine?",
-                        style: TextStyle(
-                          fontSize: 17,
-                          color: Colors.pink.shade700,
-                        ),
-                      ),
+
                       const SizedBox(height: 30),
 
                       SizedBox(
@@ -157,7 +174,7 @@ class _MyValentineState extends State<MyValentine> {
                         width: 320,
                         child: Stack(
                           children: [
-                            // 💕 YES BUTTON
+                            // 💖 YES BUTTON
                             Positioned(
                               left: 40,
                               top: 85,
@@ -171,7 +188,7 @@ class _MyValentineState extends State<MyValentine> {
                                       context,
                                       MaterialPageRoute(
                                         builder: (context) =>
-                                            const HeSaidYes(
+                                            SheSaidYes(
                                           message:
                                               "YOU SAID YESSS 💖💖💖",
                                         ),
@@ -180,19 +197,27 @@ class _MyValentineState extends State<MyValentine> {
                                   },
                                   style: ElevatedButton.styleFrom(
                                     backgroundColor:
-                                        Colors.pink.shade600,
-                                    padding: const EdgeInsets.symmetric(
-                                        horizontal: 30, vertical: 15),
-                                    shape: RoundedRectangleBorder(
+                                        const Color(0xFFD81B60),
+                                    foregroundColor: Colors.white,
+                                    elevation: 6,
+                                    shadowColor:
+                                        Colors.black.withOpacity(0.25),
+                                    padding:
+                                        const EdgeInsets.symmetric(
+                                            horizontal: 32,
+                                            vertical: 15),
+                                    shape:
+                                        RoundedRectangleBorder(
                                       borderRadius:
-                                          BorderRadius.circular(25),
+                                          BorderRadius.circular(30),
                                     ),
                                   ),
                                   child: const Text(
                                     "YES 💕",
                                     style: TextStyle(
-                                        fontWeight:
-                                            FontWeight.bold),
+                                      fontWeight:
+                                          FontWeight.bold,
+                                    ),
                                   ),
                                 ),
                               ),
@@ -202,38 +227,64 @@ class _MyValentineState extends State<MyValentine> {
                             AnimatedPositioned(
                               duration: Duration(
                                   milliseconds:
-                                      250 - (_attempts * 10)
-                                          .clamp(0, 150)),
+                                      250 -
+                                          (_attempts * 10)
+                                              .clamp(0, 150)),
                               curve: Curves.easeOut,
-                              left: _noPosition?.dx ?? 170,
-                              top: _noPosition?.dy ?? 85,
+                              left:
+                                  _noPosition?.dx ?? 170,
+                              top:
+                                  _noPosition?.dy ?? 85,
                               child: AnimatedRotation(
                                 turns: _noRotation,
-                                duration: const Duration(
-                                    milliseconds: 200),
+                                duration:
+                                    const Duration(
+                                        milliseconds:
+                                            200),
                                 child: AnimatedScale(
                                   scale: _noScale,
-                                  duration: const Duration(
-                                      milliseconds: 200),
+                                  duration:
+                                      const Duration(
+                                          milliseconds:
+                                              200),
                                   child: ElevatedButton(
-                                    onPressed: _moveNoButton,
-                                    style: ElevatedButton.styleFrom(
+                                    onPressed:
+                                        _moveNoButton,
+                                    style:
+                                        ElevatedButton
+                                            .styleFrom(
                                       backgroundColor:
-                                          Colors.pink.shade400,
+                                          const Color(
+                                              0xFFF06292),
+                                      foregroundColor:
+                                          Colors.white,
+                                      elevation: 6,
+                                      shadowColor: Colors
+                                          .black
+                                          .withOpacity(
+                                              0.25),
                                       padding:
-                                          const EdgeInsets.symmetric(
-                                              horizontal: 30,
-                                              vertical: 15),
-                                      shape: RoundedRectangleBorder(
+                                          const EdgeInsets
+                                              .symmetric(
+                                              horizontal:
+                                                  32,
+                                              vertical:
+                                                  15),
+                                      shape:
+                                          RoundedRectangleBorder(
                                         borderRadius:
-                                            BorderRadius.circular(25),
+                                            BorderRadius
+                                                .circular(
+                                                    30),
                                       ),
                                     ),
-                                    child: const Text(
+                                    child:
+                                        const Text(
                                       "No 😏",
                                       style: TextStyle(
                                           fontWeight:
-                                              FontWeight.bold),
+                                              FontWeight
+                                                  .bold),
                                     ),
                                   ),
                                 ),
@@ -250,8 +301,10 @@ class _MyValentineState extends State<MyValentine> {
                           "Stop trying 😂",
                           style: TextStyle(
                             fontSize: 14,
-                            color: Colors.pink.shade400,
-                            fontStyle: FontStyle.italic,
+                            color:
+                                Colors.pink.shade400,
+                            fontStyle:
+                                FontStyle.italic,
                           ),
                         ),
                     ],

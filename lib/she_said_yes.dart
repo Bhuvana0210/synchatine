@@ -1,16 +1,16 @@
 import 'package:flutter/material.dart';
 import 'dart:math' as math;
 
-class HeSaidYes extends StatefulWidget {
+class SheSaidYes extends StatefulWidget {
   final String message;
 
-  const HeSaidYes({super.key, required this.message});
+  const SheSaidYes({super.key, required this.message});
 
   @override
-  State<HeSaidYes> createState() => _HeSaidYesState();
+  State<SheSaidYes> createState() => _SheSaidYesState();
 }
 
-class _HeSaidYesState extends State<HeSaidYes>
+class _SheSaidYesState extends State<SheSaidYes>
     with SingleTickerProviderStateMixin {
   late AnimationController _controller;
   late Animation<double> _scaleAnimation;
@@ -49,31 +49,31 @@ class _HeSaidYesState extends State<HeSaidYes>
     return Scaffold(
       body: Stack(
         children: [
-          // 💖 Gradient Background
+          // 🌸 Elegant Gradient Background (same aesthetic)
           Container(
             decoration: BoxDecoration(
               gradient: LinearGradient(
+                begin: Alignment.topLeft,
+                end: Alignment.bottomRight,
                 colors: [
                   Colors.pink.shade300,
                   Colors.pink.shade100,
                   Colors.purple.shade100,
                   Colors.pink.shade200,
                 ],
-                begin: Alignment.topLeft,
-                end: Alignment.bottomRight,
               ),
             ),
           ),
 
           // 💕 Floating Hearts Background
-          ...List.generate(25, (i) {
+          ...List.generate(24, (i) {
             return Positioned(
               left: (i * 70.0) % size.width,
-              top: (i * 90.0) % size.height,
+              top: size.height * (i / 24),
               child: Icon(
                 Icons.favorite,
-                color: Colors.white.withOpacity(0.2),
-                size: 20 + (i % 3) * 8,
+                color: Colors.white.withOpacity(0.22),
+                size: 18 + (i % 3) * 8,
               ),
             );
           }),
@@ -81,7 +81,7 @@ class _HeSaidYesState extends State<HeSaidYes>
           SafeArea(
             child: Column(
               children: [
-                // 🌸 Top Bar
+                // 🌷 Romantic Top Bar
                 Container(
                   padding:
                       const EdgeInsets.symmetric(vertical: 16, horizontal: 16),
@@ -124,7 +124,7 @@ class _HeSaidYesState extends State<HeSaidYes>
                   ),
                 ),
 
-                // 💌 Main Content (Scrollable for safety)
+                // 💌 Main Card
                 Expanded(
                   child: SingleChildScrollView(
                     padding: const EdgeInsets.all(18),
@@ -142,7 +142,7 @@ class _HeSaidYesState extends State<HeSaidYes>
                             child: Column(
                               mainAxisSize: MainAxisSize.min,
                               children: [
-                                // ❤️ Rotating Heart
+                                // ❤️ Animated Heart
                                 AnimatedBuilder(
                                   animation: _rotationAnimation,
                                   builder: (_, __) {
@@ -175,7 +175,7 @@ class _HeSaidYesState extends State<HeSaidYes>
 
                                 const SizedBox(height: 18),
 
-                                // Title
+                                // Main Title Message
                                 Text(
                                   widget.message,
                                   textAlign: TextAlign.center,
@@ -217,7 +217,7 @@ class _HeSaidYesState extends State<HeSaidYes>
 
                                 const SizedBox(height: 18),
 
-                                // 💌 Love Letter
+                                // 💖 Love Letter Box
                                 Container(
                                   padding:
                                       const EdgeInsets.all(18),
@@ -231,46 +231,26 @@ class _HeSaidYesState extends State<HeSaidYes>
                                       width: 1.3,
                                     ),
                                   ),
-                                  child: Column(
-                                    children: [
-                                      Text(
-                                        'Dear Flexxx,',
-                                        style: TextStyle(
-                                          fontSize:
-                                              isSmallScreen ? 17 : 19,
-                                          fontWeight:
-                                              FontWeight.w600,
-                                          color: Colors
-                                              .pink.shade800,
-                                          fontFamily: 'Georgia',
-                                        ),
-                                      ),
-                                      const SizedBox(height: 10),
-                                      Text(
-                                        "I look at you and see our entire history—every laugh, every hurdle we cleared, and every milestone that led us to this moment. Turning you from my girlfriend into my wife is the proudest achievement of my life. You aren't just my partner; you are my witness, my anchor, and my greatest adventure. I loved you then, I love you more now, and I’ll spend the rest of our lives proving that the best is still yet to come.",
-                                        textAlign:
-                                            TextAlign.center,
-                                        style: TextStyle(
-                                          fontSize:
-                                              isSmallScreen
-                                                  ? 14
-                                                  : 15,
-                                          height: 1.4,
-                                          color: Colors
-                                              .pink.shade900,
-                                          fontFamily:
-                                              'Georgia',
-                                          fontStyle:
-                                              FontStyle.italic,
-                                        ),
-                                      ),
-                                    ],
+                                  child: Text(
+                                    "Muddu, I look at you and see our entire history—every laugh, every hurdle we cleared, and every milestone that led us to this moment. Turning you from my girlfriend into my wife is the proudest achievement of my life. You aren't just my partner; you are my witness, my anchor, and my greatest adventure. I loved you then, I love you more now, and I’ll spend the rest of our lives proving that the best is still yet to come. 💖😘",
+                                    textAlign: TextAlign.center,
+                                    style: TextStyle(
+                                      fontSize:
+                                          isSmallScreen ? 14 : 15,
+                                      height: 1.4,
+                                      color: Colors
+                                          .pink.shade900,
+                                      fontFamily:
+                                          'Georgia',
+                                      fontStyle:
+                                          FontStyle.italic,
+                                    ),
                                   ),
                                 ),
 
                                 const SizedBox(height: 20),
 
-                                // Emoji row (mobile friendly - no hover)
+                                // Bottom Emoji Row
                                 Wrap(
                                   alignment: WrapAlignment.center,
                                   spacing: 12,
