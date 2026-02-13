@@ -19,15 +19,14 @@ class _HeSaidYesState extends State<HeSaidYes>
   @override
   void initState() {
     super.initState();
+
     _controller = AnimationController(
       duration: const Duration(milliseconds: 1200),
       vsync: this,
     );
 
-    _scaleAnimation = CurvedAnimation(
-      parent: _controller,
-      curve: Curves.elasticOut,
-    );
+    _scaleAnimation =
+        CurvedAnimation(parent: _controller, curve: Curves.elasticOut);
 
     _rotationAnimation = Tween<double>(begin: 0, end: 2 * math.pi).animate(
       CurvedAnimation(parent: _controller, curve: Curves.easeInOut),
@@ -44,36 +43,37 @@ class _HeSaidYesState extends State<HeSaidYes>
 
   @override
   Widget build(BuildContext context) {
-    final isSmallScreen = MediaQuery.of(context).size.width < 600;
+    final size = MediaQuery.of(context).size;
+    final isSmallScreen = size.width < 600;
 
     return Scaffold(
       body: Stack(
         children: [
-          // 🌸 Background
+          // 💖 Gradient Background
           Container(
             decoration: BoxDecoration(
               gradient: LinearGradient(
-                begin: Alignment.topLeft,
-                end: Alignment.bottomRight,
                 colors: [
                   Colors.pink.shade300,
                   Colors.pink.shade100,
                   Colors.purple.shade100,
                   Colors.pink.shade200,
                 ],
+                begin: Alignment.topLeft,
+                end: Alignment.bottomRight,
               ),
             ),
           ),
 
-          // Floating hearts (background only)
-          ...List.generate(24, (i) {
+          // 💕 Floating Hearts Background
+          ...List.generate(25, (i) {
             return Positioned(
-              left: (i * 70.0) % MediaQuery.of(context).size.width,
-              top: MediaQuery.of(context).size.height * (i / 24),
+              left: (i * 70.0) % size.width,
+              top: (i * 90.0) % size.height,
               child: Icon(
                 Icons.favorite,
-                color: Colors.white.withOpacity(0.25),
-                size: 18 + (i % 3) * 8,
+                color: Colors.white.withOpacity(0.2),
+                size: 20 + (i % 3) * 8,
               ),
             );
           }),
@@ -81,7 +81,7 @@ class _HeSaidYesState extends State<HeSaidYes>
           SafeArea(
             child: Column(
               children: [
-                // 🔝 App Bar
+                // 🌸 Top Bar
                 Container(
                   padding:
                       const EdgeInsets.symmetric(vertical: 16, horizontal: 16),
@@ -103,8 +103,8 @@ class _HeSaidYesState extends State<HeSaidYes>
                   child: Row(
                     children: [
                       IconButton(
-                        icon:
-                            const Icon(Icons.arrow_back, color: Colors.white),
+                        icon: const Icon(Icons.arrow_back,
+                            color: Colors.white),
                         onPressed: () => Navigator.pop(context),
                       ),
                       const Expanded(
@@ -112,10 +112,10 @@ class _HeSaidYesState extends State<HeSaidYes>
                           'Yay! 💕',
                           textAlign: TextAlign.center,
                           style: TextStyle(
-                            fontSize: 26,
+                            fontSize: 24,
                             fontWeight: FontWeight.bold,
                             color: Colors.white,
-                            letterSpacing: 1.5,
+                            letterSpacing: 1.2,
                           ),
                         ),
                       ),
@@ -124,62 +124,56 @@ class _HeSaidYesState extends State<HeSaidYes>
                   ),
                 ),
 
-                // 🌷 Main Card
+                // 💌 Main Content (Scrollable for safety)
                 Expanded(
-                  child: Center(
-                    child: Padding(
-                      padding: const EdgeInsets.all(18),
+                  child: SingleChildScrollView(
+                    padding: const EdgeInsets.all(18),
+                    child: Center(
                       child: ScaleTransition(
                         scale: _scaleAnimation,
                         child: Card(
-                          elevation: 10,
+                          elevation: 12,
                           shape: RoundedRectangleBorder(
                             borderRadius: BorderRadius.circular(28),
                           ),
-                          child: Container(
-                            constraints: BoxConstraints(
-                              maxWidth:
-                                  isSmallScreen ? double.infinity : 1000,
-                            ),
+                          child: Padding(
                             padding: EdgeInsets.all(
-                                isSmallScreen ? 24 : 28),
+                                isSmallScreen ? 22 : 28),
                             child: Column(
                               mainAxisSize: MainAxisSize.min,
                               children: [
-                                // ❤️ TOP HEART (hover pop)
+                                // ❤️ Rotating Heart
                                 AnimatedBuilder(
                                   animation: _rotationAnimation,
                                   builder: (_, __) {
-                                    return HoverHeart(
-                                      child: Transform.rotate(
-                                        angle: math.sin(
-                                                _rotationAnimation.value) *
-                                            0.08,
-                                        child: Container(
-                                          padding:
-                                              const EdgeInsets.all(14),
-                                          decoration: BoxDecoration(
-                                            shape: BoxShape.circle,
-                                            gradient: LinearGradient(
-                                              colors: [
-                                                Colors.pink.shade400,
-                                                Colors.red.shade400,
-                                              ],
-                                            ),
+                                    return Transform.rotate(
+                                      angle: math.sin(
+                                              _rotationAnimation.value) *
+                                          0.08,
+                                      child: Container(
+                                        padding:
+                                            const EdgeInsets.all(14),
+                                        decoration: BoxDecoration(
+                                          shape: BoxShape.circle,
+                                          gradient: LinearGradient(
+                                            colors: [
+                                              Colors.pink.shade400,
+                                              Colors.red.shade400,
+                                            ],
                                           ),
-                                          child: Icon(
-                                            Icons.favorite,
-                                            size:
-                                                isSmallScreen ? 18 : 32,
-                                            color: Colors.white,
-                                          ),
+                                        ),
+                                        child: Icon(
+                                          Icons.favorite,
+                                          size:
+                                              isSmallScreen ? 24 : 32,
+                                          color: Colors.white,
                                         ),
                                       ),
                                     );
                                   },
                                 ),
 
-                                const SizedBox(height: 16),
+                                const SizedBox(height: 18),
 
                                 // Title
                                 Text(
@@ -194,7 +188,7 @@ class _HeSaidYesState extends State<HeSaidYes>
                                   ),
                                 ),
 
-                                const SizedBox(height: 12),
+                                const SizedBox(height: 16),
 
                                 // Divider
                                 Row(
@@ -202,37 +196,35 @@ class _HeSaidYesState extends State<HeSaidYes>
                                       MainAxisAlignment.center,
                                   children: [
                                     Container(
-                                      width: 36,
+                                      width: 40,
                                       height: 2,
                                       color: Colors.pink.shade300,
                                     ),
                                     const SizedBox(width: 10),
                                     Icon(
                                       Icons.favorite,
-                                      size: 14,
+                                      size: 16,
                                       color: Colors.pink.shade400,
                                     ),
                                     const SizedBox(width: 10),
                                     Container(
-                                      width: 36,
+                                      width: 40,
                                       height: 2,
                                       color: Colors.pink.shade300,
-                                      
                                     ),
-                                    
                                   ],
                                 ),
 
-                                const SizedBox(height: 12),
+                                const SizedBox(height: 18),
 
-                                // 💌 LETTER (darker text + darker border)
+                                // 💌 Love Letter
                                 Container(
                                   padding:
                                       const EdgeInsets.all(18),
                                   decoration: BoxDecoration(
                                     color: Colors.pink.shade100,
                                     borderRadius:
-                                        BorderRadius.circular(14),
+                                        BorderRadius.circular(16),
                                     border: Border.all(
                                       color:
                                           Colors.pink.shade400,
@@ -244,9 +236,8 @@ class _HeSaidYesState extends State<HeSaidYes>
                                       Text(
                                         'Dear Flexxx,',
                                         style: TextStyle(
-                                          fontSize: isSmallScreen
-                                              ? 17
-                                              : 19,
+                                          fontSize:
+                                              isSmallScreen ? 17 : 19,
                                           fontWeight:
                                               FontWeight.w600,
                                           color: Colors
@@ -256,55 +247,44 @@ class _HeSaidYesState extends State<HeSaidYes>
                                       ),
                                       const SizedBox(height: 10),
                                       Text(
-                                        'You just made my heart skip a beat! 💗\n\n'
-                                        'From the moment I saw you, I knew you were special. '
-                                        'Your smile lights up my world like the brightest star, '
-                                        'and being with you feels like coming home.\n\n'
-                                        'Thank you for choosing me, for saying yes, '
-                                        'and for making this Valentine\'s Day absolutely perfect.\n\n'
-                                        'Here\'s to us, to love, and to forever! 🌹',
-                                        textAlign: TextAlign.center,
+                                        "I look at you and see our entire history—every laugh, every hurdle we cleared, and every milestone that led us to this moment. Turning you from my girlfriend into my wife is the proudest achievement of my life. You aren't just my partner; you are my witness, my anchor, and my greatest adventure. I loved you then, I love you more now, and I’ll spend the rest of our lives proving that the best is still yet to come.",
+                                        textAlign:
+                                            TextAlign.center,
                                         style: TextStyle(
                                           fontSize:
                                               isSmallScreen
-                                                  ? 13
+                                                  ? 14
                                                   : 15,
-                                          height: 1.35,
+                                          height: 1.4,
                                           color: Colors
                                               .pink.shade900,
                                           fontFamily:
                                               'Georgia',
                                           fontStyle:
                                               FontStyle.italic,
-                                          fontWeight:
-                                              FontWeight.w500,
                                         ),
                                       ),
                                     ],
                                   ),
                                 ),
 
+                                const SizedBox(height: 20),
+
+                                // Emoji row (mobile friendly - no hover)
+                                Wrap(
+                                  alignment: WrapAlignment.center,
+                                  spacing: 12,
+                                  children: const [
+                                    Text("💕", style: TextStyle(fontSize: 22)),
+                                    Text("💖", style: TextStyle(fontSize: 22)),
+                                    Text("💝", style: TextStyle(fontSize: 22)),
+                                    Text("💗", style: TextStyle(fontSize: 22)),
+                                    Text("💓", style: TextStyle(fontSize: 22)),
+                                  ],
+                                ),
+
                                 const SizedBox(height: 16),
 
-                                // 💕 EMOJI HEARTS (hover pop)
-                                Row(
-                                  mainAxisAlignment: MainAxisAlignment.center,
-                                    children: [
-                                      _emoji('💕', isSmallScreen),
-                                      const SizedBox(width: 12),
-                                      _emoji('💖', isSmallScreen),
-                                      const SizedBox(width: 12),
-                                      _emoji('💝', isSmallScreen),
-                                      const SizedBox(width: 12),
-                                      _emoji('💗', isSmallScreen),
-                                      const SizedBox(width: 12),
-                                      _emoji('💓', isSmallScreen),
-                              ],
-                            ),
-
-                                const SizedBox(height: 14),
-
-                                // Footer
                                 Text(
                                   '✨ Forever Yours ✨',
                                   style: TextStyle(
@@ -326,63 +306,6 @@ class _HeSaidYesState extends State<HeSaidYes>
             ),
           ),
         ],
-      ),
-    );
-  }
-
-  Widget _emoji(String emoji, bool isSmall) {
-    return HoverHeart(
-      child: Container(
-        padding: EdgeInsets.all(isSmall ? 6 : 8),
-        decoration: const BoxDecoration(
-          shape: BoxShape.circle,
-          color: Colors.white,
-        ),
-        child: Text(
-          emoji,
-          style: TextStyle(fontSize: isSmall ? 18 : 22),
-        ),
-      ),
-    );
-  }
-}
-
-/// ❤️ Hover pop effect widget
-class HoverHeart extends StatefulWidget {
-  final Widget child;
-  const HoverHeart({super.key, required this.child});
-
-  @override
-  State<HoverHeart> createState() => _HoverHeartState();
-}
-
-class _HoverHeartState extends State<HoverHeart> {
-  bool _hovered = false;
-
-  @override
-  Widget build(BuildContext context) {
-    return MouseRegion(
-      cursor: SystemMouseCursors.click,
-      onEnter: (_) => setState(() => _hovered = true),
-      onExit: (_) => setState(() => _hovered = false),
-      child: AnimatedContainer(
-        duration: const Duration(milliseconds: 180),
-        transform: _hovered
-            ? (Matrix4.identity()..scale(1.15))
-            : Matrix4.identity(),
-        decoration: BoxDecoration(
-          shape: BoxShape.circle,
-          boxShadow: _hovered
-              ? [
-                  BoxShadow(
-                    color: Colors.pink.withOpacity(0.5),
-                    blurRadius: 18,
-                    spreadRadius: 3,
-                  ),
-                ]
-              : [],
-        ),
-        child: widget.child,
       ),
     );
   }
